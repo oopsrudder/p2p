@@ -6,7 +6,7 @@ import Peer from "simple-peer"
 
 const SocketContext = createContext()
 
-const socket = io('http://localhost:3001');
+const socket = io()
 // const socket = io("https://warm-wildwood-81069.herokuapp.com")
 
 const ContextProvider = ({ children }) => {
@@ -41,7 +41,7 @@ const ContextProvider = ({ children }) => {
 	const answerCall = () => {
 		setCallAccepted(true)
 
-		const peer = new Peer({ initiator: false,config: { iceServers: [{ urls: "stun:stun.qq.com:3478" }] }, trickle: false, stream })
+		const peer = new Peer({ initiator: false, config: { iceServers: [{ urls: "stun:stun.qq.com:3478" }] }, trickle: false, stream })
 
 		peer.on("signal", (data) => {
 			socket.emit("answerCall", { signal: data, to: call.from })
